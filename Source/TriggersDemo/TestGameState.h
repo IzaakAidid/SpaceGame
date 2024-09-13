@@ -23,5 +23,5 @@ protected:
 public:
 	void ManageWorldState();
 	void ManageMonsterState();
-	void IncrementMonsterMultiplier(float IncrementAmount) { m_MonsterMultiplier + IncrementAmount; };
+	void IncrementMonsterMultiplier(float IncrementAmount) { m_MonsterMultiplier += IncrementAmount; };
 };
