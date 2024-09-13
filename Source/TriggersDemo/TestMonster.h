@@ -9,22 +9,29 @@
 UCLASS()
 class TRIGGERSDEMO_API ATestMonster : public AActor
 {
-	GENERATED_BODY()
+    GENERATED_BODY()
 
 public:
-	// Sets default values for this actor's properties
-	ATestMonster();
+    // Sets default values for this actor's properties
+    ATestMonster();
 
 protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
+    // Called when the game starts or when spawned
+    virtual void BeginPlay() override;
 
 public:
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-	float GetCorruptionSpread() { return m_corruptionSpread; };
+    // Called every frame
+    virtual void Tick(float DeltaTime) override;
+    float GetCorruptionSpread() { return m_corruptionSpread; };
+    void MoveMonster(float DeltaTime);
+
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Mesh")
+    UStaticMeshComponent* MonsterMesh;
+
+    bool m_movingForward;
 
 protected:
-	float m_corruptionSpread;
+    float m_corruptionSpread;
 
 };

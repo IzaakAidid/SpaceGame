@@ -9,37 +9,45 @@
 UCLASS()
 class TRIGGERSDEMO_API ALightBulbs : public AActor
 {
-	GENERATED_BODY()
+    GENERATED_BODY()
 
 public:
-	// Sets default values for this actor's properties
-	ALightBulbs();
+    // Sets default values for this actor's properties
+    ALightBulbs();
 
 protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
+    // Called when the game starts or when spawned
+    virtual void BeginPlay() override;
 
 public:
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
+    // Called every frame
+    virtual void Tick(float DeltaTime) override;
 
-	float SpreadCorruption(AActor* actorHit);
-	void CheckCorruption(AActor* actorHit);
+    float SpreadCorruption(AActor* actorHit);
+    void CheckForCorruption();
+    void ApplyCorruption(AActor* actorHit);
 
-	UFUNCTION()
-	void HitboxOverlapBegin(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+    UFUNCTION()
+    void HitboxOverlapBegin(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
-	//HitBox for corruption
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Corruption")
-	class USphereComponent* CorruptionRadius;
+    //HitBox for corruption
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Corruption")
+    class USphereComponent* CorruptionRadius;
 
 
-	UPROPERTY(EditDefaultsOnly, Category = "Mesh")
-	UStaticMeshComponent* LightBulbMesh;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Mesh")
+    UStaticMeshComponent* LightBulbMesh;
+
+    //Timers
+    FTimerHandle m_corruptionTimer;
+    FTimerHandle m_corruptCooldown;
 
 protected:
+    UPROPERTY(VisibleAnywhere)
+    bool m_isCorrrupted;
+    bool m_canCorrupt;
 
-	bool m_isCorrrupted;
-	float m_corruptionAmount;
+    UPROPERTY(VisibleAnywhere)
+    float m_corruptionAmount;
 
 };
