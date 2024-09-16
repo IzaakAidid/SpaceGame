@@ -29,9 +29,17 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Mesh")
     UStaticMeshComponent* MonsterMesh;
 
-    bool m_movingForward;
+    //HitBox for corruption
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Corruption")
+    class USphereComponent* CorruptionRadius;
+
+
+    UFUNCTION()
+    void CorruptionOverlapBegin(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
 protected:
     float m_corruptionSpread;
+    bool m_movingForward;
+
 
 };

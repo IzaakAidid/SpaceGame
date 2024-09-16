@@ -23,13 +23,14 @@ public:
     // Called every frame
     virtual void Tick(float DeltaTime) override;
 
-    float SpreadCorruption(AActor* actorHit);
-    void CheckForCorruption();
-    void ApplyCorruption(AActor* actorHit);
+    float SpreadCorruption(AActor* corruptedActor);
+
+    void ApplyCorruption(AActor* corruptedActor);
 
     UFUNCTION()
-    void HitboxOverlapBegin(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+    void CorruptionOverlapBegin(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
+    void BecomeCorrupt(AActor* corruptActor);
     //HitBox for corruption
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Corruption")
     class USphereComponent* CorruptionRadius;
@@ -38,16 +39,18 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Mesh")
     UStaticMeshComponent* LightBulbMesh;
 
-    //Timers
-    FTimerHandle m_corruptionTimer;
-    FTimerHandle m_corruptCooldown;
 
 protected:
-    UPROPERTY(VisibleAnywhere)
+    UPROPERTY(VisibleAnywhere, Category = "Corruption")
     bool m_isCorrrupted;
-    bool m_canCorrupt;
 
-    UPROPERTY(VisibleAnywhere)
+    UPROPERTY(VisibleAnywhere, Category = "Corruption")
     float m_corruptionAmount;
+
+    UPROPERTY(VisibleAnywhere, Category = "Corruption")
+    float m_maxCorruptionRadius;
+    
+    UPROPERTY(VisibleAnywhere, Category = "Corruption")
+    float currentRadius;
 
 };
